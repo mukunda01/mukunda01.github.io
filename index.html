@@ -1,1 +1,101 @@
-Test
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.center {
+  margin: auto;
+  text-align: center;
+}
+
+.ta {
+    margin-top: 50px;
+    width: 50%;
+}
+</style>
+</head>
+<body>
+
+<ul id="text">
+  <li>Quick zephyrs blow, vexing daft Jim. Sphinx of black quartz, judge my vow.</li>
+  <li>Two driven jocks help fax my big quiz.</li>
+  <li>Five quacking zephyrs jolt my wax bed.</li>
+  <li>The five boxing wizards jump quickly.</li>
+  <li>Pack my box with five dozen liquor jugs.</li>
+  <li>The quick brown fox jumps over the lazy dog.</li>
+  <li>Jinxed wizards pluck ivy from the big quilt.</li>
+  <li>Crazy Fredrick bought many very exquisite opal jewels.</li>
+  <li>We promptly judged antique ivory buckles for the next prize.</li>
+  <li>A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.</li>
+  <li>Jaded zombies acted quaintly but kept driving their oxen forward.</li>
+  <li>The job requires extra pluck and zeal from every young wage earner.</li>
+</ul>
+
+<div class="center">
+  <textarea name="ta" id="t-input" cols="30" rows="10" class="ta"
+  ></textarea>
+
+  <button type='button' onclick="analyse()">Analyse</button>
+  <button type='button' onclick="reset()">Reset</button>
+</div>
+
+</body>
+
+<script>
+const url = 'https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1&format=html';
+
+var data = [];
+
+document.getElementById("t-input").onkeyup = function() {
+  // console.log('u', event.key, text[event.target.value.length]);
+  // if (event.key == text[event.target.value.length]) {
+    data.push({ key: event.key, time: Date.now() });
+  // };
+};
+document.getElementById("t-input").onkeypress = function() {
+  // if (event.key != text[this.value.length]) { return false; } else {
+    // console.log('p', event.key);
+    data.push({ key: event.key, time: Date.now() });
+  // };
+};
+
+
+function reset() {
+    data = [];
+}
+
+function analyse() {
+    var pressDuration = [];
+    var temp;
+    for (let i = 0; i < data.length; i++) {
+        if (i%2 == 0) {
+            temp = data[i]
+        } else {
+            pressDuration.push({ key: data[i].key, time: data[i].time - temp.time });
+        }
+    }
+
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8200/submit";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // var json = JSON.parse(xhr.responseText);
+            // console.log(json);
+            alert('Submitted!')
+        }
+    };
+    var p = JSON.stringify({
+      email: "test",
+      data: pressDuration
+    });
+    xhr.send(p);
+
+
+
+}
+
+</script>
+</html>
+
