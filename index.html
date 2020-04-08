@@ -1,101 +1,209 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.center {
-  margin: auto;
-  text-align: center;
-}
+<!doctype html>
 
-.ta {
-    margin-top: 50px;
-    width: 50%;
-}
-</style>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+  <title>Keystroke Dynamics</title>
+
+
+  <!-- Add to homescreen for Chrome on Android -->
+
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+
+  <!-- Add to homescreen for Safari on iOS -->
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+
+  <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+
+  <link rel="shortcut icon" href="images/favicon.png">
+
+
+  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+
+  <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+
+    .demo-ribbon {
+      width: 100%;
+      height: 40vh;
+      background-color: #3F51B5;
+      -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+    }
+
+    .demo-main {
+      margin-top: -35vh;
+      -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+    }
+
+    .demo-header .mdl-layout__header-row {
+      padding-left: 40px;
+    }
+
+    .demo-container {
+      max-width: 1600px;
+      width: calc(100% - 16px);
+      margin: 0 auto;
+    }
+
+    .demo-content {
+      border-radius: 2px;
+      padding: 80px 56px;
+      margin-bottom: 80px;
+    }
+
+    .demo-layout.is-small-screen .demo-content {
+      padding: 40px 28px;
+    }
+
+    .demo-content h3 {
+      margin-top: 48px;
+    }
+
+    .demo-footer {
+      padding-left: 40px;
+    }
+
+    .demo-footer .mdl-mini-footer--link-list a {
+      font-size: 13px;
+    }
+
+    .ml-5 {
+      margin-left: 5px;
+    }
+  </style>
+
 </head>
+
 <body>
 
-<ul id="text">
-  <li>Quick zephyrs blow, vexing daft Jim. Sphinx of black quartz, judge my vow.</li>
-  <li>Two driven jocks help fax my big quiz.</li>
-  <li>Five quacking zephyrs jolt my wax bed.</li>
-  <li>The five boxing wizards jump quickly.</li>
-  <li>Pack my box with five dozen liquor jugs.</li>
-  <li>The quick brown fox jumps over the lazy dog.</li>
-  <li>Jinxed wizards pluck ivy from the big quilt.</li>
-  <li>Crazy Fredrick bought many very exquisite opal jewels.</li>
-  <li>We promptly judged antique ivory buckles for the next prize.</li>
-  <li>A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.</li>
-  <li>Jaded zombies acted quaintly but kept driving their oxen forward.</li>
-  <li>The job requires extra pluck and zeal from every young wage earner.</li>
-</ul>
+  <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
 
-<div class="center">
-  <textarea name="ta" id="t-input" cols="30" rows="10" class="ta"
-  ></textarea>
+    <header
+      class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
 
-  <button type='button' onclick="analyse()">Analyse</button>
-  <button type='button' onclick="reset()">Reset</button>
-</div>
+      <div class="mdl-layout__header-row">
+
+        <span class="mdl-layout-title">Keystroke Dynamics</span>
+
+        <div class="mdl-layout-spacer">
+        </div>
+      </div>
+
+    </header>
+
+    <div class="demo-ribbon"></div>
+
+    <main class="demo-main mdl-layout__content">
+
+      <div class="demo-container mdl-grid mdl-typography--text-center">
+
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+
+        <div
+          class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+
+
+
+          <div>
+            <ul class="demo-list-item mdl-list">
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                  The job requires extra pluck and zeal from every young wage earner.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="email" required id="sample1">
+            <label class="mdl-textfield__label" for="sample1">Enter your Email</label>
+          </div>
+          <div>
+            <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col">
+              <!-- <textarea class="mdl-textfield__input" type="text" rows="3" id="sample5"></textarea> -->
+              <input class="mdl-textfield__input" type="text" id="sample1">
+              <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+            </div>
+          </div>
+
+          <div class="mdl-grid mdl-typography--text-center">
+
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-cell mdl-cell--4-col">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                ANALYSE
+              </button>
+              <button class="mdl-button mdl-js-button mdl-button--raised ml-5 mdl-js-ripple-effect">
+                RESET
+              </button>
+            </div>
+            <div class="mdl-layout-spacer"></div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </main>
+
+  </div>
+
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 </body>
 
-<script>
-const url = 'https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1&format=html';
-
-var data = [];
-
-document.getElementById("t-input").onkeyup = function() {
-  // console.log('u', event.key, text[event.target.value.length]);
-  // if (event.key == text[event.target.value.length]) {
-    data.push({ key: event.key, time: Date.now() });
-  // };
-};
-document.getElementById("t-input").onkeypress = function() {
-  // if (event.key != text[this.value.length]) { return false; } else {
-    // console.log('p', event.key);
-    data.push({ key: event.key, time: Date.now() });
-  // };
-};
-
-
-function reset() {
-    data = [];
-}
-
-function analyse() {
-    var pressDuration = [];
-    var temp;
-    for (let i = 0; i < data.length; i++) {
-        if (i%2 == 0) {
-            temp = data[i]
-        } else {
-            pressDuration.push({ key: data[i].key, time: data[i].time - temp.time });
-        }
-    }
-
-    var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8200/submit";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // var json = JSON.parse(xhr.responseText);
-            // console.log(json);
-            alert('Submitted!')
-        }
-    };
-    var p = JSON.stringify({
-      email: "test",
-      data: pressDuration
-    });
-    xhr.send(p);
-
-
-
-}
-
-</script>
 </html>
-
