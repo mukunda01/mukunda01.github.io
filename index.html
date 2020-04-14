@@ -157,10 +157,16 @@
 
 
           <div>
+            <h5 style="text-align: left;">Instructions</h5>
+            <ul style="text-align: left;">
+              <li>Write the EXACT sentence given below.</li>
+              <li>Please do not use delete or backspace. If needed, hit RESET button incase you typed anything wrong.</li>
+              <li>Use only ONE emailid per person. Please do not use a different email everytime you give the response otherwise we will not have the data needed for the project.</li>
+            </ul>
             <ul class="demo-list-item mdl-list">
               <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
-                  Quick zephyrs blow, vexing daft Jim. Sphinx of black quartz, judge my vow.
+                  <h4>The quick brown fox jumps over the lazy dog</h4>
                 </span>
               </li>
             </ul>
@@ -277,7 +283,7 @@ function save() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var resp = JSON.parse(xhr.responseText);
             if (resp.result == 'Sucessfully recorded your response') {
-              msg = 'Saved';
+              msg = 'Thanks for your resonse!';
             } else {
               msg = resp.result;
             }
