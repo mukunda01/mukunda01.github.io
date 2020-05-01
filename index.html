@@ -283,22 +283,17 @@ document.getElementById("t-input").onkeyup = function() {
 };
 
 document.getElementById("a-input").onkeypress = function() {
-  // if (event.key != text[this.value.length]) { return false; } else {
-    // console.log('p', event.key);
-    adata.push({ key: event.key, time: Date.now() });
-  // };
+  adata.push({ key: event.key, time: Date.now() });
 };
 
 document.getElementById("a-input").onkeyup = function() {
-  // console.log('u', event.key, text[event.target.value.length]);
-  // if (event.key == text[event.target.value.length]) {
-    adata.push({ key: event.key, time: Date.now() });
-  // };
+  adata.push({ key: event.key, time: Date.now() });
 };
 
 
 function reset() {
     data = [];
+    adata = [];
     document.getElementById('t-input').value = null;
     document.getElementById('a-input').value = null;
 }
@@ -313,7 +308,9 @@ function save(typ) {
     var fmtData = [];
     var buffer = [];
 
-    data.forEach((v, k) => {
+    var temp = typ === 'a' ? adata : data;
+
+    temp.forEach((v, k) => {
       if (iList.indexOf(v.key) < 0) {
         // console.log(v);
         var index = buffer.findIndex((searchBuffer), {v});
@@ -367,10 +364,6 @@ function save(typ) {
         data: fmtData
       });
     }
-    var p = JSON.stringify({
-      email: email,
-      data: fmtData
-    });
     xhr.send(p);
 
   } else {
