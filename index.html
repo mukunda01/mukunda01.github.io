@@ -122,6 +122,10 @@
     .ml-5 {
       margin-left: 5px;
     }
+
+    .mdl-tabs__panel {
+      padding-top: 20px;
+    }
   </style>
 
 </head>
@@ -171,34 +175,71 @@
               </li>
             </ul>
           </div>
-          <form onsubmit="event.preventDefault(); save();">
-          <div class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="email" required id="email">
-            <label class="mdl-textfield__label" for="sample1">Enter your Email</label>
-          </div>
-          <div>
-            <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col">
-              <!-- <textarea class="mdl-textfield__input" type="text" rows="3" id="sample5"></textarea> -->
-              <input class="mdl-textfield__input" type="text" id="t-input" required>
-              <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+
+
+
+          <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#entry-panel" class="mdl-tabs__tab is-active">Data Entry</a>
+                <a href="#analysis-panel" class="mdl-tabs__tab">Analysis</a>
+            </div>
+
+            <div class="mdl-tabs__panel is-active" id="entry-panel">
+              <form onsubmit="event.preventDefault(); save('i');">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="email" required id="email">
+                  <label class="mdl-textfield__label" for="sample1">Enter your Email</label>
+                </div>
+                <div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col">
+                    <!-- <textarea class="mdl-textfield__input" type="text" rows="3" id="sample5"></textarea> -->
+                    <input class="mdl-textfield__input" type="text" id="t-input" required>
+                    <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+                  </div>
+                </div>
+
+                <div class="mdl-grid mdl-typography--text-center">
+
+                  <div class="mdl-layout-spacer"></div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type='submit'>
+                      Save
+                    </button>
+                    <a class="mdl-button mdl-js-button mdl-button--raised ml-5 mdl-js-ripple-effect" onclick="reset()" type='button'>
+                      Reset
+                    </a>
+                  </div>
+                  <div class="mdl-layout-spacer"></div>
+
+                </div>
+              </form>
+            </div>
+            <div class="mdl-tabs__panel" id="analysis-panel">
+              <form onsubmit="event.preventDefault(); save('a');">
+                <div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col">
+                    <input class="mdl-textfield__input" type="text" id="a-input" required>
+                    <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+                  </div>
+                </div>
+
+                <div class="mdl-grid mdl-typography--text-center">
+
+                  <div class="mdl-layout-spacer"></div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type='submit'>
+                      Analyse
+                    </button>
+                    <a class="mdl-button mdl-js-button mdl-button--raised ml-5 mdl-js-ripple-effect" onclick="reset()" type='button'>
+                      Reset
+                    </a>
+                  </div>
+                  <div class="mdl-layout-spacer"></div>
+
+                </div>
+              </form>
             </div>
           </div>
-
-          <div class="mdl-grid mdl-typography--text-center">
-
-            <div class="mdl-layout-spacer"></div>
-            <div class="mdl-cell mdl-cell--4-col">
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type='submit'>
-                Save
-              </button>
-              <a class="mdl-button mdl-js-button mdl-button--raised ml-5 mdl-js-ripple-effect" onclick="reset()" type='button'>
-                Reset
-              </a>
-            </div>
-            <div class="mdl-layout-spacer"></div>
-
-          </div>
-          </form>
 
 
 
@@ -224,6 +265,7 @@
 var notification = document.querySelector('.mdl-js-snackbar');
 
 var data = [];
+var adata = [];
 var iList = ['Shift', 'Meta', 'Tab', ' '];
 
 document.getElementById("t-input").onkeypress = function() {
@@ -240,19 +282,34 @@ document.getElementById("t-input").onkeyup = function() {
   // };
 };
 
+document.getElementById("a-input").onkeypress = function() {
+  // if (event.key != text[this.value.length]) { return false; } else {
+    // console.log('p', event.key);
+    adata.push({ key: event.key, time: Date.now() });
+  // };
+};
+
+document.getElementById("a-input").onkeyup = function() {
+  // console.log('u', event.key, text[event.target.value.length]);
+  // if (event.key == text[event.target.value.length]) {
+    adata.push({ key: event.key, time: Date.now() });
+  // };
+};
+
 
 function reset() {
     data = [];
     document.getElementById('t-input').value = null;
+    document.getElementById('a-input').value = null;
 }
 
 function searchBuffer(ele) {
   return ele.key === this.v.key;
 }
 
-function save() {
+function save(typ) {
     var email = document.getElementById('email').value;
-  if (email) {
+  if (email || typ == 'a') {
     var fmtData = [];
     var buffer = [];
 
@@ -275,7 +332,12 @@ function save() {
 
     var xhr = new XMLHttpRequest();
 //     var url = "http://localhost:5000/submit";
-    var url = "https://keystroke.live/submit";
+    var url = "https://keystroke.live/";
+    if (typ == 'a') {
+      url += "analyse"
+    } else {
+      url += "submit"
+    }
     xhr.open("POST", url, true);
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -295,6 +357,16 @@ function save() {
             reset();
         }
     };
+    if (typ == 'a') {
+      var p = JSON.stringify({
+        data: fmtData
+      });
+    } else {
+      var p = JSON.stringify({
+        email: email,
+        data: fmtData
+      });
+    }
     var p = JSON.stringify({
       email: email,
       data: fmtData
